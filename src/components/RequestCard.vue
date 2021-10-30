@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="$emit('click')">
+  <div class="card">
     <div class="headline">
       <badge class="method">{{ method }}</badge>
       <span class="url">{{ url }}</span>

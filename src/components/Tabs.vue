@@ -38,10 +38,7 @@ export default defineComponent({
     return { activeTabIndex };
   },
   methods: {
-    setActiveTab(ind: number) {
-      console.log(ind);
-      this.activeTabIndex = ind;
-    },
+    setActiveTab(ind: number) { this.activeTabIndex = ind; },
   },
 });
 </script>

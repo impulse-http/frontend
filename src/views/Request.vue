@@ -17,9 +17,11 @@
         <pretty-button class="button">Send</pretty-button>
       </div>
       <div class="request-body">
-        <tabs :tab-names="['Response', 'Headers']">
+        <tabs :tab-names="['Request', 'Headers']">
           <template v-slot:tab-0><code-editor/></template>
-          <template v-slot:tab-1><div>Haha!</div></template>
+          <template v-slot:tab-1>
+            <parameters-grid v-model="selectedRequest.headers"/>
+          </template>
         </tabs>
       </div>
       <div class="response">
@@ -34,9 +36,10 @@
 
 <script lang="ts">
 import {
-  defineComponent, ref,
+  defineComponent, ref, reactive,
 } from 'vue';
 import RequestOptions from '@/components/RequestOptions.vue';
+import ParametersGrid from '@/components/ParametersGrid.vue';
 import JsonViewer from '@/components/JsonViewer.vue';
 import PrettyButton from '@/components/PrettyButton.vue';
 import RequestCard from '@/components/RequestCard.vue';
@@ -44,6 +47,7 @@ import RequestData from '@/types/request';
 import Method from '@/types/method';
 import Tabs from '@/components/Tabs.vue';
 import CodeEditor from '@/components/CodeEditor.vue';
+import { createDefaultParameterList } from '@/types/parameter';
 
 export default defineComponent({
   name: 'Request',
@@ -52,6 +56,7 @@ export default defineComponent({
     Tabs,
     RequestCard,
     PrettyButton,
+    ParametersGrid,
     JsonViewer,
     RequestOptions,
   },
@@ -62,64 +67,78 @@ export default defineComponent({
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/api_1',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_2',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_3',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_4',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_5',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_6',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_7',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_8',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_9',
+        headers: createDefaultParameterList(),
       },
       {
         method: Method.Get,
         date: Date.now(),
         url: 'http://localhost:8000/test_10',
+        headers: createDefaultParameterList(),
       },
     ];
-    const selectedRequest = ref({
+    const selectedRequest = ref(reactive({
       method: Method.Get,
       date: Date.now(),
       url: '',
-    });
-    const selectRequest = (ind: number) => { selectedRequest.value = requestHistory[ind]; };
+      headers: createDefaultParameterList(),
+    } as RequestData));
+    const selectRequest = (ind: number) => {
+      selectedRequest.value = reactive(requestHistory[ind] as RequestData);
+    };
     return {
       testingJson,
       requestHistory,

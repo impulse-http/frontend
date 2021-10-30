@@ -28,8 +28,8 @@ export default defineComponent({
       doc: '',
       extensions: [
         basicSetup,
-        keymap.of([indentWithTab]),
         json(),
+        keymap.of([indentWithTab]),
       ],
     });
     this.editor = new EditorView({
@@ -44,6 +44,24 @@ export default defineComponent({
 .editor {
   text-align: left;
   margin-top: 10px;
-  width: 500px;
+  width: 100%;
+  border: 1px solid #2c3e50;
+}
+</style>
+
+<style lang="css">
+.cm-scroller, .cm-gutter {
+  min-height: 300px;
+}
+
+.cm-gutters {
+  background-color: #ffffff !important;
+  color: #2c3e50 !important;
+  border-right: 1px solid #2c3e50 !important;
+}
+
+.cm-activeLineGutter {
+  background-color: #ffffff !important;
+  font-weight: bold;
 }
 </style>

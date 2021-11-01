@@ -6,7 +6,7 @@
 import { defineComponent } from 'vue';
 import { basicSetup, EditorState } from '@codemirror/basic-setup';
 import { EditorView, keymap } from '@codemirror/view';
-import { indentWithTab } from '@codemirror/commands';
+import { standardKeymap, insertTab } from '@codemirror/commands';
 import { json } from '@codemirror/lang-json';
 
 export default defineComponent({
@@ -27,9 +27,12 @@ export default defineComponent({
     this.state = EditorState.create({
       doc: '',
       extensions: [
+        keymap.of([
+          ...standardKeymap,
+          { key: 'Tab', run: insertTab },
+        ]),
         basicSetup,
         json(),
-        keymap.of([indentWithTab]),
       ],
     });
     this.editor = new EditorView({

@@ -1,15 +1,22 @@
 <template>
   <div class="page">
     <div class="sidebar">
-      <request-card
-        class="history-card"
-        v-for="(r, ind) in requestHistory"
-        :key="ind"
-        :datetime="r.date"
-        :method="r.method"
-        :url="r.url"
-        @click="selectRequest(ind)"
-      />
+      <tabs :tab-names="['Collection', 'History']">
+        <template v-slot:tab-0>
+          <request-collection :items="requestCollection"/>
+        </template>
+        <template v-slot:tab-1>
+          <request-card
+            class="history-card"
+            v-for="(r, ind) in requestHistory"
+            :key="ind"
+            :datetime="r.date"
+            :method="r.method"
+            :url="r.url"
+            @click="selectRequest(ind)"
+          />
+        </template>
+      </tabs>
     </div>
     <div class="main">
       <div class="request-bar">
@@ -43,6 +50,7 @@ import ParametersGrid from '@/components/ParametersGrid.vue';
 import JsonViewer from '@/components/JsonViewer.vue';
 import PrettyButton from '@/components/PrettyButton.vue';
 import RequestCard from '@/components/RequestCard.vue';
+import RequestCollection from '@/components/RequestCollection.vue';
 import RequestData from '@/types/request';
 import Method from '@/types/method';
 import Tabs from '@/components/Tabs.vue';
@@ -55,6 +63,7 @@ export default defineComponent({
     CodeEditor,
     Tabs,
     RequestCard,
+    RequestCollection,
     PrettyButton,
     ParametersGrid,
     JsonViewer,
@@ -130,6 +139,26 @@ export default defineComponent({
         headers: createDefaultParameterList(),
       },
     ];
+    const requestCollection = ref([
+      { method: 'get', name: 'Get products list' },
+      { method: 'post', name: 'Create a new product' },
+      {
+        name: 'Garbage',
+        collection: true,
+        items: [
+          { method: 'get', name: 'Get products list' },
+          { method: 'post', name: 'Create a new product' },
+          {
+            name: 'Garbage',
+            collection: true,
+            items: [
+              { method: 'get', name: 'Get products list' },
+              { method: 'post', name: 'Create a new product' },
+            ],
+          },
+        ],
+      },
+    ]);
     const selectedRequest = ref(reactive({
       method: Method.Get,
       date: Date.now(),
@@ -142,6 +171,7 @@ export default defineComponent({
     return {
       testingJson,
       requestHistory,
+      requestCollection,
       selectedRequest,
       selectRequest,
     };

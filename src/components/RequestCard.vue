@@ -29,7 +29,7 @@ export default defineComponent({
     },
     datetime: {
       type: Number,
-      default: Date.now(),
+      required: false,
     },
   },
   setup(props) {

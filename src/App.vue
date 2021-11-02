@@ -1,8 +1,10 @@
 <template>
-  <div id="nav">
-    <router-link to="/request">Request</router-link>
+  <div class="nav" id="nav">
+    <router-link class="nav-item" to="/projects">Projects</router-link>
+    <router-link class="nav-item" to="/teams">Teams</router-link>
+    <router-link class="nav-item" to="/request">Requests</router-link>
   </div>
-  <router-view class="view"/>
+  <router-view class="view" />
 </template>
 
 <style>
@@ -23,16 +25,26 @@ html, body {
 }
 
 #nav {
-  padding: 30px;
-  height: 80px;
 }
 
-#nav a {
+.nav {
+  display: flex;
+  border-bottom: 2px solid #2c3e50;
+  padding: 20px;
+  height: 20px;
+}
+
+.nav .nav-item {
   font-weight: bold;
   color: #2c3e50;
+  margin-right: 15px;
 }
 
-#nav a.router-link-exact-active {
+.nav a {
+  text-decoration: none;
+}
+
+.nav a.router-link-exact-active {
   color: #42b983;
 }
 
@@ -40,7 +52,7 @@ html, body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 70px;
+  top: 80px;
   bottom: 0;
   left: 0;
   right: 0;

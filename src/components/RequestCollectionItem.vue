@@ -34,6 +34,11 @@ export default defineComponent({
 .collection-item {
   display: flex;
   justify-content: flex-start;
+  cursor: pointer;
+}
+
+.collection-item:hover {
+  font-weight: bold;
 }
 
 .icon {

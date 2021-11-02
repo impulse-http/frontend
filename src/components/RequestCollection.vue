@@ -1,11 +1,16 @@
 <template>
   <div class="request-collection">
-    <div class="item-wrapper" v-for="(item, ind) in items" :key="ind">
+    <div
+      class="item-wrapper"
+      v-for="(item, ind) in items"
+      :key="ind"
+    >
       <div class="item">
         <request-collection-item
           v-if="!item.collection"
           :method="item.method"
           :name="item.name"
+          @click="$emit('select', item.request)"
         />
         <template v-else>
           <request-collection-item
@@ -15,7 +20,12 @@
           />
         </template>
       </div>
-      <request-collection v-if="collapsed[ind]" :items="item.items" class="item nested"/>
+      <request-collection
+        v-if="collapsed[ind]"
+        :items="item.items"
+        class="item nested"
+        @select="it => $emit('select', it)"
+      />
     </div>
   </div>
 </template>
@@ -27,6 +37,7 @@ import RequestCollectionItem from '@/components/RequestCollectionItem.vue';
 export default defineComponent({
   name: 'RequestCollection',
   components: { RequestCollectionItem },
+  emits: ['select'],
   props: {
     items: {
       type: Array,

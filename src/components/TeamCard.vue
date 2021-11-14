@@ -1,10 +1,9 @@
 <template>
   <base-card>
-    <template v-slot:header>
-      <div class="name">{{ name }}</div>
-    </template>
+    <template v-slot:header>{{ name }}</template>
     <template v-slot:footer>
-      <div class="request-count">{{ requestsCount }} requests</div>
+      <div class="description">{{ description }}</div>
+      <div class="members">{{ members }} members</div>
     </template>
   </base-card>
 </template>
@@ -14,14 +13,18 @@ import { defineComponent } from 'vue';
 import BaseCard from '@/components/BaseCard.vue';
 
 export default defineComponent({
-  name: 'CollectionCard',
+  name: 'TeamCard',
   components: { BaseCard },
   props: {
     name: {
       type: String,
       required: true,
     },
-    requestsCount: {
+    description: {
+      type: String,
+      required: true,
+    },
+    members: {
       type: Number,
       required: true,
     },
@@ -30,4 +33,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.members {
+  padding-top: 10px;
+}
 </style>

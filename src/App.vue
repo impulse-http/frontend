@@ -47,14 +47,4 @@ html, body {
 .nav a.router-link-exact-active {
   color: #42b983;
 }
-
-.view {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 80px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
 </style>

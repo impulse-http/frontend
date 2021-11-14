@@ -104,7 +104,7 @@ export default defineComponent({
 .page {
   display: flex;
   flex-direction: row;
-  padding: 10px 30px 50px;
+  padding: 30px 30px 50px;
   align-items: stretch;
   min-height: -webkit-min-content;
   min-height: -moz-min-content;

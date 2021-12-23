@@ -3,14 +3,14 @@
     <div
       class="item-wrapper"
       v-for="(item, ind) in items"
-      :key="ind"
+      :key="item.id"
     >
       <div class="item">
         <request-collection-item
           v-if="!item.collection"
           :method="item.method"
           :name="item.name"
-          @click="$emit('select', item.request)"
+          @click="$emit('select', item)"
         />
         <template v-else>
           <request-collection-item

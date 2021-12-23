@@ -1,8 +1,7 @@
 <template>
   <div class="nav" id="nav">
-    <router-link class="nav-item" to="/projects">Projects</router-link>
-    <router-link class="nav-item" to="/teams">Teams</router-link>
-    <router-link class="nav-item" to="/request">Requests</router-link>
+    <router-link class="nav-item" to="/collections">Collections</router-link>
+    <router-link class="nav-item" to="/requests">Requests</router-link>
   </div>
   <router-view class="view" />
 </template>

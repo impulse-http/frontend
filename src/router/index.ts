@@ -1,23 +1,24 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Request from '../views/Request.vue';
-import Collections from '../views/Collections.vue';
-import Teams from '../views/Teams.vue';
+import Request from '@/views/Request.vue';
+import CollectionsWrapper from '@/views/CollectionsWrapper.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/request',
+    path: '/collections/:id/requests',
     name: 'Request',
     component: Request,
+    props: (route) => ({ collectionId: +route.params.id }),
   },
   {
-    path: '/projects',
-    name: 'Projects',
-    component: Collections,
+    path: '/requests',
+    name: 'BareRequests',
+    component: Request,
+    props: { collectionId: null },
   },
   {
-    path: '/teams',
-    name: 'Teams',
-    component: Teams,
+    path: '/collections',
+    name: 'Collections',
+    component: CollectionsWrapper,
   },
 ];
 

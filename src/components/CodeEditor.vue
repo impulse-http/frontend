@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { basicSetup, EditorState } from '@codemirror/basic-setup';
-import { EditorView, keymap } from '@codemirror/view';
+import { EditorView, keymap, ViewUpdate } from '@codemirror/view';
 import { standardKeymap, insertTab } from '@codemirror/commands';
 import { json } from '@codemirror/lang-json';
 
@@ -16,6 +16,10 @@ export default defineComponent({
       type: String,
       default: 'editor',
     },
+    modelValue: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -23,14 +27,24 @@ export default defineComponent({
       editor: (undefined as unknown) as EditorView,
     };
   },
+  emits: ['update:modelValue'],
   mounted() {
     this.state = EditorState.create({
-      doc: '',
+      doc: this.modelValue,
       extensions: [
         keymap.of([
           ...standardKeymap,
-          { key: 'Tab', run: insertTab },
+          {
+            key: 'Tab',
+            run: insertTab,
+          },
         ]),
+        EditorView.updateListener.of((update: ViewUpdate) => {
+          if (update.docChanged) {
+            const value = Array.from(update.state.doc).join('');
+            this.$emit('update:modelValue', value);
+          }
+        }),
         basicSetup,
         json(),
       ],
@@ -40,6 +54,19 @@ export default defineComponent({
       state: this.state as EditorState,
     });
   },
+  methods: {
+    setValue(newValue: string) {
+      const currentState = this.editor.state;
+      const update = currentState.update({
+        changes: {
+          from: 0,
+          to: currentState.doc.length,
+          insert: newValue,
+        },
+      });
+      this.editor.update([update]);
+    },
+  },
 });
 </script>
 
@@ -47,8 +74,8 @@ export default defineComponent({
 .editor {
   text-align: left;
   margin-top: 10px;
-  width: 100%;
   border: 1px solid #2c3e50;
+  width: 100%;
 }
 </style>
 

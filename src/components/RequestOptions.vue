@@ -1,12 +1,22 @@
 <template>
   <div class="request-bar">
-    <input type="text" v-model="urlVal" class="input">
-    <pretty-select :options="httpMethods" class="method-select"/>
+    <input
+      type="text"
+      :value="url"
+      @input="$emit('update:url', $event.target.value)"
+      class="input"
+    >
+    <pretty-select
+      :options="httpMethods"
+      class="method-select"
+      :model-value="method"
+      @update:model-value="$emit('update:method', $event)"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref } from 'vue';
 import PrettySelect from '@/components/PrettySelect.vue';
 
 export default defineComponent({
@@ -23,13 +33,10 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
-    const methodVal = ref(props.method);
-    const urlVal = ref(props.url);
+  emits: ['update:method', 'update:url'],
+  setup() {
     const httpMethods = ref(['GET', 'POST', 'PUT', 'UPDATE', 'DELETE', 'PATCH', 'OPTIONS']);
-    watch(() => props.method, (val) => { methodVal.value = val; });
-    watch(() => props.url, (val) => { urlVal.value = val; });
-    return { methodVal, urlVal, httpMethods };
+    return { httpMethods };
   },
 });
 </script>

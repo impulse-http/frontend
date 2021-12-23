@@ -1,7 +1,7 @@
 <template>
   <div class="pretty-select" :style="{'width': `${16 * maxOptionLength()}px`}">
     <div v-on:click="isActive = !isActive" class="baseField">
-      <span class="text">{{ selectedVal }}</span>
+      <span class="text">{{ modelValue }}</span>
       <chevron-down class="icon"/>
     </div>
     <div v-if="isActive" class="options-container">
@@ -25,24 +25,24 @@ import ChevronDown from '@/components/icons/ChevronDown.vue';
 export default defineComponent({
   components: { ChevronDown },
   props: {
+    modelValue: {
+      type: String,
+      required: false,
+    },
     options: {
       type: Array as PropType<Array<string>>,
       required: true,
       minLength: 1,
     },
   },
+  emits: ['update:modelValue'],
   setup(props) {
-    const selectedVal = ref(props.options[0]);
     const isActive = ref(false);
-    provide('selectedVal', selectedVal);
-    return {
-      selectedVal,
-      isActive,
-    };
+    return { isActive };
   },
   methods: {
     setOption(ind: number) {
-      this.selectedVal = this.options[ind];
+      this.$emit('update:modelValue', this.options[ind]);
       this.isActive = false;
     },
     maxOptionLength(): number {
@@ -76,5 +76,7 @@ export default defineComponent({
 
 .options-container {
   border: 1px solid #2c3e50;
+  z-index: 2;
+  position: relative;
 }
 </style>

@@ -12,6 +12,7 @@
     "@codemirror/commands": "^0.19.5",
     "@codemirror/lang-json": "^0.19.1",
     "@codemirror/view": "^0.19.9",
+    "@vueuse/core": "^7.1.2",
     "codemirror": "^5.63.3",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",

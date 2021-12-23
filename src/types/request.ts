@@ -5,7 +5,8 @@ interface RequestData {
   method: Method,
   date: number,
   url: string,
-  headers: Parameter[] | null,
+  headers: Parameter[],
+  body: string,
 }
 
 export default RequestData;

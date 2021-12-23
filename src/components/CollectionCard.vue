@@ -1,5 +1,5 @@
 <template>
-  <base-card>
+  <base-card @click="$router.push({ name: 'Request', params: { id: `${id}` }})">
     <template v-slot:header>
       <div class="name">{{ name }}</div>
     </template>
@@ -17,6 +17,10 @@ export default defineComponent({
   name: 'CollectionCard',
   components: { BaseCard },
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     name: {
       type: String,
       required: true,

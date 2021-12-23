@@ -33,17 +33,25 @@ export default defineComponent({
       default: () => [],
     },
   },
+  emits: ['tab-changed'],
   setup() {
     const activeTabIndex = ref(0);
     return { activeTabIndex };
   },
   methods: {
-    setActiveTab(ind: number) { this.activeTabIndex = ind; },
+    setActiveTab(ind: number) {
+      this.activeTabIndex = ind;
+      this.$emit('tab-changed', ind);
+    },
   },
 });
 </script>
 
 <style scoped>
+.tab-wrapper, .tabs {
+  width: 100%;
+}
+
 .title {
   cursor: pointer;
 }
@@ -63,6 +71,7 @@ export default defineComponent({
 }
 
 .tab-view {
+  width: 100%;
   margin-top: 20px;
 }
 

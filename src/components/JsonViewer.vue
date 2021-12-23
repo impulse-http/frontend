@@ -1,9 +1,14 @@
 <template>
-  <div class="json-viewer"><pre>{{ json }}</pre></div>
+  <div class="json-viewer"><pre>{{ data && beautifyJson(data) }}</pre></div>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+function beautifyJson(obj: string): string {
+  const parsedData = JSON.parse(obj);
+  return JSON.stringify(parsedData, null, 4);
+}
 
 export default defineComponent({
   name: 'JsonViewer',
@@ -12,16 +17,9 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    width: {
-      type: String,
-      required: false,
-      default: '380px',
-    },
   },
-  setup(props) {
-    const jsonData = JSON.parse(props.data);
-    const json = ref(JSON.stringify(jsonData, null, 4));
-    return { json };
+  setup() {
+    return { beautifyJson };
   },
 });
 </script>
@@ -30,9 +28,13 @@ export default defineComponent({
 .json-viewer {
   border: 1px solid #2c3e50;
   padding: 10px;
+  width: 100%;
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .json-viewer pre {
   text-align: left;
+  word-wrap: break-word;
 }
 </style>

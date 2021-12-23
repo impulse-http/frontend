@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import PrettySelect from '@/components/PrettySelect.vue';
+import Method from '@/types/method';
 
 export default defineComponent({
   components: { PrettySelect },
@@ -35,7 +36,13 @@ export default defineComponent({
   },
   emits: ['update:method', 'update:url'],
   setup() {
-    const httpMethods = ref(['GET', 'POST', 'PUT', 'UPDATE', 'DELETE', 'PATCH', 'OPTIONS']);
+    const httpMethods = ref([
+      Method.Get,
+      Method.Delete,
+      Method.Update,
+      Method.Put,
+      Method.Post,
+    ]);
     return { httpMethods };
   },
 });
